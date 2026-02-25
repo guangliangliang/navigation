@@ -17,17 +17,26 @@
     <!-- 中间内容 -->
     <section class="content-area">
       <div class="category-header">
-        <h2>{{ currentCategory.name }}</h2>
-        <p>{{ currentCategory.description }}</p>
+        <h2>关于我们</h2>
+        <p>导航网站的介绍</p>
       </div>
-      <div class="site-grid">
-        <div v-for="site in filteredSites" :key="site.id" class="site-card">
-          <a :href="site.url" target="_blank" class="site-link">
-            <div class="site-info">
-              <h3 class="site-name">{{ site.name }}</h3>
-              <p class="site-description">{{ site.description }}</p>
-            </div>
-          </a>
+      <div class="about-content">
+        <div class="about-card">
+          <h3>网站简介</h3>
+          <p>这是一个简洁实用的导航网站，旨在为用户提供优质的网站资源聚合服务。我们精心挑选了各个领域的优质网站，方便用户快速访问。</p>
+        </div>
+        <div class="about-card">
+          <h3>功能特点</h3>
+          <ul>
+            <li>分类导航：按类别组织网站资源</li>
+            <li>推荐网站：精选优质网站</li>
+            <li>工具集合：实用在线工具</li>
+            <li>资源分享：学习和素材资源</li>
+          </ul>
+        </div>
+        <div class="about-card">
+          <h3>联系我们</h3>
+          <p>如果您有任何建议或意见，欢迎联系我们。</p>
         </div>
       </div>
     </section>
@@ -35,8 +44,8 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
-import { categories, sites } from '../config/navigation.js'
+import { ref } from 'vue'
+import { categories } from '../config/navigation.js'
 
 // 当前激活的分类
 const activeCategory = ref('all')
@@ -47,17 +56,6 @@ const scrollToCategory = (categoryId) => {
   // 滚动到页面顶部
   window.scrollTo({ top: 0, behavior: 'smooth' })
 }
-
-// 当前分类信息
-const currentCategory = computed(() => {
-  return categories.find(cat => cat.id === activeCategory.value) || categories[0]
-})
-
-// 过滤后的网站
-const filteredSites = computed(() => {
-  // 不再根据分类过滤，始终显示所有网站
-  return sites
-})
 </script>
 
 <style scoped>
@@ -144,47 +142,42 @@ const filteredSites = computed(() => {
   color: #909399;
 }
 
-/* 网站网格样式 */
-.site-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+/* 关于内容样式 */
+.about-content {
+  display: flex;
+  flex-direction: column;
   gap: 20px;
 }
 
-.site-card {
+.about-card {
   background-color: #ffffff;
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.site-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
-}
-
-.site-link {
-  display: block;
   padding: 20px;
-  text-decoration: none;
-  color: inherit;
 }
 
-.site-info {
-  flex: 1;
-}
-
-.site-name {
+.about-card h3 {
   font-size: 16px;
   font-weight: 600;
   color: #303133;
-  margin-bottom: 8px;
+  margin-bottom: 15px;
 }
 
-.site-description {
+.about-card p {
   font-size: 14px;
   color: #606266;
-  line-height: 1.4;
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+
+.about-card ul {
+  list-style: disc;
+  padding-left: 20px;
+}
+
+.about-card li {
+  font-size: 14px;
+  color: #606266;
+  margin-bottom: 8px;
 }
 </style>

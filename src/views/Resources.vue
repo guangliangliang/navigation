@@ -17,11 +17,11 @@
     <!-- 中间内容 -->
     <section class="content-area">
       <div class="category-header">
-        <h2>{{ currentCategory.name }}</h2>
-        <p>{{ currentCategory.description }}</p>
+        <h2>资源网站</h2>
+        <p>丰富的学习和素材资源</p>
       </div>
       <div class="site-grid">
-        <div v-for="site in filteredSites" :key="site.id" class="site-card">
+        <div v-for="site in resourcesSites" :key="site.id" class="site-card">
           <a :href="site.url" target="_blank" class="site-link">
             <div class="site-info">
               <h3 class="site-name">{{ site.name }}</h3>
@@ -48,15 +48,9 @@ const scrollToCategory = (categoryId) => {
   window.scrollTo({ top: 0, behavior: 'smooth' })
 }
 
-// 当前分类信息
-const currentCategory = computed(() => {
-  return categories.find(cat => cat.id === activeCategory.value) || categories[0]
-})
-
-// 过滤后的网站
-const filteredSites = computed(() => {
-  // 不再根据分类过滤，始终显示所有网站
-  return sites
+// 资源类网站
+const resourcesSites = computed(() => {
+  return sites.filter(site => site.category === 'resources')
 })
 </script>
 

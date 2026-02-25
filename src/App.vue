@@ -4,10 +4,10 @@
     <header class="top-nav">
       <div class="container">
         <div class="logo">
-          <h1>{{ siteSettings.title }}</h1>
+          <router-link to="/" class="logo-link"><h1>{{ siteSettings.title }}</h1></router-link>
         </div>
         <nav class="main-nav">
-          <a v-for="link in navLinks" :key="link.name" :href="link.href" class="nav-link">{{ link.name }}</a>
+          <router-link v-for="link in navLinks" :key="link.name" :to="link.href" class="nav-link">{{ link.name }}</router-link>
         </nav>
         <div class="search-box">
           <input type="text" :placeholder="siteSettings.searchPlaceholder" class="search-input">
@@ -24,15 +24,13 @@
           <h3>分类</h3>
           <ul class="menu-list">
             <li v-for="category in categories" :key="category.id" class="menu-item">
-              <a href="#" class="menu-link" :class="{ active: activeCategory === category.id }" @click="setActiveCategory(category.id)">
+              <a href="#" class="menu-link" :class="{ active: activeCategory === category.id }" @click="scrollToCategory(category.id)">
                 {{ category.name }}
               </a>
             </li>
           </ul>
         </div>
       </aside>
-
-      <!-- 中间内容 -->
       <section class="content-area">
         <div class="category-header">
           <h2>{{ currentCategory.name }}</h2>
@@ -41,9 +39,6 @@
         <div class="site-grid">
           <div v-for="site in filteredSites" :key="site.id" class="site-card">
             <a :href="site.url" target="_blank" class="site-link">
-              <div class="site-icon">
-                <img :src="site.icon" :alt="site.name">
-              </div>
               <div class="site-info">
                 <h3 class="site-name">{{ site.name }}</h3>
                 <p class="site-description">{{ site.description }}</p>
@@ -63,9 +58,11 @@ import { categories, sites, navLinks, siteSettings } from './config/navigation.j
 // 当前激活的分类
 const activeCategory = ref('all')
 
-// 设置激活分类
-const setActiveCategory = (categoryId) => {
+// 滚动到对应分类位置
+const scrollToCategory = (categoryId) => {
   activeCategory.value = categoryId
+  // 这里可以添加滚动逻辑，例如滚动到页面顶部或特定位置
+  window.scrollTo({ top: 0, behavior: 'smooth' })
 }
 
 // 当前分类信息
@@ -75,10 +72,8 @@ const currentCategory = computed(() => {
 
 // 过滤后的网站
 const filteredSites = computed(() => {
-  if (activeCategory.value === 'all') {
-    return sites
-  }
-  return sites.filter(site => site.category === activeCategory.value)
+  // 不再根据分类过滤，始终显示所有网站
+  return sites
 })
 </script>
 
@@ -118,6 +113,11 @@ body {
   font-size: 20px;
   font-weight: 700;
   color: #409eff;
+}
+
+.logo-link {
+  text-decoration: none;
+  color: inherit;
 }
 
 .main-nav {
@@ -173,154 +173,20 @@ body {
   background-color: #66b1ff;
 }
 
-/* 主体内容 */
 .main-content {
-  max-width: 1200px;
-  margin: 20px auto;
-  padding: 0 20px;
-  display: flex;
-  gap: 20px;
+  min-height: calc(100vh - 60px);
+  padding: 20px 0;
 }
 
-/* 左侧菜单 */
-.left-menu {
-  width: 200px;
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  flex-shrink: 0;
+/* 路由过渡动画 */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
 }
 
-.menu-section h3 {
-  font-size: 16px;
-  font-weight: 600;
-  color: #303133;
-  margin-bottom: 15px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid #ebeef5;
-}
-
-.menu-list {
-  list-style: none;
-}
-
-.menu-item {
-  margin-bottom: 8px;
-}
-
-.menu-link {
-  display: block;
-  padding: 8px 12px;
-  color: #606266;
-  text-decoration: none;
-  font-size: 14px;
-  border-radius: 4px;
-  transition: all 0.3s;
-}
-
-.menu-link:hover {
-  background-color: #ecf5ff;
-  color: #409eff;
-}
-
-.menu-link.active {
-  background-color: #ecf5ff;
-  color: #409eff;
-  font-weight: 500;
-}
-
-/* 中间内容 */
-.content-area {
-  flex: 1;
-  min-width: 0;
-}
-
-.category-header {
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  margin-bottom: 20px;
-}
-
-.category-header h2 {
-  font-size: 18px;
-  font-weight: 600;
-  color: #303133;
-  margin-bottom: 5px;
-}
-
-.category-header p {
-  font-size: 14px;
-  color: #909399;
-}
-
-/* 网站网格 */
-.site-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 20px;
-}
-
-.site-card {
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.site-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
-}
-
-.site-link {
-  display: flex;
-  padding: 20px;
-  text-decoration: none;
-  color: inherit;
-}
-
-.site-icon {
-  width: 48px;
-  height: 48px;
-  border-radius: 8px;
-  overflow: hidden;
-  margin-right: 15px;
-  flex-shrink: 0;
-}
-
-.site-icon img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.site-info {
-  flex: 1;
-  min-width: 0;
-}
-
-.site-name {
-  font-size: 16px;
-  font-weight: 600;
-  color: #303133;
-  margin-bottom: 5px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.site-description {
-  font-size: 14px;
-  color: #909399;
-  line-height: 1.4;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 
 /* 响应式设计 */
