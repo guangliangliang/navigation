@@ -4,76 +4,64 @@
     <header class="top-nav">
       <div class="container">
         <div class="logo">
-          <router-link to="/" class="logo-link"><h1>{{ siteSettings.title }}</h1></router-link>
+          <router-link to="/" class="logo-link">
+            <span class="logo-icon">🧭</span>
+            <h1>{{ siteSettings.title }}</h1>
+          </router-link>
         </div>
         <nav class="main-nav">
-          <router-link v-for="link in navLinks" :key="link.name" :to="link.href" class="nav-link">{{ link.name }}</router-link>
+          <router-link 
+            v-for="link in navLinks" 
+            :key="link.name" 
+            :to="link.href" 
+            class="nav-link"
+            active-class="active"
+          >
+            {{ link.name }}
+          </router-link>
         </nav>
         <div class="search-box">
-          <input type="text" :placeholder="siteSettings.searchPlaceholder" class="search-input">
-          <button class="search-btn">搜索</button>
+          <el-input
+            v-model="searchQuery"
+            :placeholder="siteSettings.searchPlaceholder"
+            :prefix-icon="Search"
+            clearable
+            class="header-search-input"
+            size="default"
+          />
         </div>
       </div>
     </header>
 
     <!-- 主体内容 -->
     <main class="main-content">
-      <!-- 左侧菜单 -->
-      <aside class="left-menu">
-        <div class="menu-section">
-          <h3>分类</h3>
-          <ul class="menu-list">
-            <li v-for="category in categories" :key="category.id" class="menu-item">
-              <a href="#" class="menu-link" :class="{ active: activeCategory === category.id }" @click="scrollToCategory(category.id)">
-                {{ category.name }}
-              </a>
-            </li>
-          </ul>
-        </div>
-      </aside>
-      <section class="content-area">
-        <div class="category-header">
-          <h2>{{ currentCategory.name }}</h2>
-          <p>{{ currentCategory.description }}</p>
-        </div>
-        <div class="site-grid">
-          <div v-for="site in filteredSites" :key="site.id" class="site-card">
-            <a :href="site.url" target="_blank" class="site-link">
-              <div class="site-info">
-                <h3 class="site-name">{{ site.name }}</h3>
-                <p class="site-description">{{ site.description }}</p>
-              </div>
-            </a>
-          </div>
-        </div>
-      </section>
+      <!-- 路由视图 -->
+      <router-view v-slot="{ Component }">
+        <transition name="fade" mode="out-in">
+          <component :is="Component" :search-query="searchQuery" />
+        </transition>
+      </router-view>
     </main>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+      <p>Made with ❤️ | Navigation System © 2026</p>
+    </footer>
   </div>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
-import { categories, sites, navLinks, siteSettings } from './config/navigation.js'
+import { ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
+import { navLinks, siteSettings } from './config/navigation.js'
+import { Search } from '@element-plus/icons-vue'
 
-// 当前激活的分类
-const activeCategory = ref('all')
+const route = useRoute()
+const searchQuery = ref('')
 
-// 滚动到对应分类位置
-const scrollToCategory = (categoryId) => {
-  activeCategory.value = categoryId
-  // 这里可以添加滚动逻辑，例如滚动到页面顶部或特定位置
-  window.scrollTo({ top: 0, behavior: 'smooth' })
-}
-
-// 当前分类信息
-const currentCategory = computed(() => {
-  return categories.find(cat => cat.id === activeCategory.value) || categories[0]
-})
-
-// 过滤后的网站
-const filteredSites = computed(() => {
-  // 不再根据分类过滤，始终显示所有网站
-  return sites
+// 监听路由变化，切换页面时清空搜索
+watch(() => route.path, () => {
+  searchQuery.value = ''
 })
 </script>
 
@@ -85,164 +73,206 @@ const filteredSites = computed(() => {
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  background-color: #f5f7fa;
-  color: #333;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  background: var(--bg-gradient);
+  color: var(--text-color);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+#app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 /* 顶部导航栏 */
 .top-nav {
-  background-color: #ffffff;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  box-shadow: var(--shadow-md);
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: 1000;
+  border-bottom: 1px solid rgba(102, 126, 234, 0.1);
 }
 
 .top-nav .container {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 30px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 60px;
+  height: 70px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo-icon {
+  font-size: 28px;
+  margin-right: 10px;
 }
 
 .logo h1 {
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 700;
-  color: #409eff;
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .logo-link {
   text-decoration: none;
-  color: inherit;
+  display: flex;
+  align-items: center;
+  transition: transform 0.3s;
+}
+
+.logo-link:hover {
+  transform: scale(1.05);
 }
 
 .main-nav {
   display: flex;
-  gap: 30px;
+  gap: 8px;
+  background: var(--bg-color);
+  padding: 6px 12px;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
 }
 
 .nav-link {
-  color: #606266;
+  color: var(--text-light);
   text-decoration: none;
   font-size: 14px;
   font-weight: 500;
-  transition: color 0.3s;
+  padding: 10px 20px;
+  border-radius: var(--radius-xl);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
 }
 
 .nav-link:hover {
-  color: #409eff;
+  color: var(--primary-color);
+  background: rgba(102, 126, 234, 0.08);
+}
+
+.nav-link.active {
+  color: var(--primary-color);
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.12) 0%, rgba(118, 75, 162, 0.12) 100%);
+  font-weight: 600;
+  box-shadow: inset 0 0 0 2px rgba(102, 126, 234, 0.2);
 }
 
 .search-box {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+  width: 280px;
 }
 
-.search-input {
-  width: 200px;
-  height: 36px;
-  padding: 0 15px;
-  border: 1px solid #dcdfe6;
-  border-radius: 18px;
+.header-search-input :deep(.el-input__wrapper) {
+  box-shadow: var(--shadow-sm);
+  border-radius: var(--radius-xl);
+  padding: 0 16px;
+  height: 40px;
+  background: var(--bg-color);
+  transition: all 0.3s;
+}
+
+.header-search-input :deep(.el-input__wrapper:hover),
+.header-search-input :deep(.el-input__wrapper.is-focus) {
+  box-shadow: var(--shadow-md);
+  background: white;
+}
+
+.header-search-input :deep(.el-input__inner) {
   font-size: 14px;
-  outline: none;
-  transition: border-color 0.3s;
+  color: var(--text-color);
 }
 
-.search-input:focus {
-  border-color: #409eff;
+.header-search-input :deep(.el-input__inner::placeholder) {
+  color: var(--text-light);
 }
 
-.search-btn {
-  width: 36px;
-  height: 36px;
-  background-color: #409eff;
-  color: white;
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.search-btn:hover {
-  background-color: #66b1ff;
-}
-
+/* 主体内容 */
 .main-content {
-  min-height: calc(100vh - 60px);
-  padding: 20px 0;
+  flex: 1;
+  padding: 30px;
 }
 
 /* 路由过渡动画 */
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.3s ease;
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-.fade-enter-from,
+.fade-enter-from {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
 .fade-leave-to {
   opacity: 0;
+  transform: translateY(-20px);
+}
+
+/* 页脚 */
+.footer {
+  background: white;
+  padding: 20px;
+  text-align: center;
+  color: var(--text-light);
+  font-size: 14px;
+  border-top: 1px solid rgba(102, 126, 234, 0.1);
 }
 
 /* 响应式设计 */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .top-nav .container {
-    flex-direction: column;
+    flex-wrap: wrap;
     height: auto;
     padding: 15px 20px;
-    gap: 10px;
-  }
-
-  .main-nav {
-    flex-wrap: wrap;
-    justify-content: center;
     gap: 15px;
   }
 
-  .search-box {
+  .main-nav {
+    order: 3;
     width: 100%;
     justify-content: center;
+    flex-wrap: wrap;
   }
 
-  .search-input {
+  .search-box {
+    order: 2;
+    width: 200px;
+  }
+}
+
+@media (max-width: 768px) {
+  .top-nav .container {
+    flex-direction: column;
+  }
+
+  .main-nav {
+    gap: 4px;
+    padding: 4px 8px;
+  }
+
+  .nav-link {
+    padding: 8px 14px;
+    font-size: 13px;
+  }
+
+  .search-box {
     width: 100%;
     max-width: 300px;
   }
 
   .main-content {
-    flex-direction: column;
-  }
-
-  .left-menu {
-    width: 100%;
-  }
-
-  .menu-section h3 {
-    margin-bottom: 10px;
-  }
-
-  .menu-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-
-  .menu-item {
-    margin-bottom: 0;
-  }
-
-  .menu-link {
-    padding: 6px 12px;
-    font-size: 13px;
-  }
-
-  .site-grid {
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    padding: 15px;
   }
 }
 </style>

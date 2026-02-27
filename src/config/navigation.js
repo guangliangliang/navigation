@@ -42,17 +42,51 @@ export const categories = [
 
 // 网站配置
 export const sites = [
+  // AI 类
   {
     id: 1,
+    name: "ChatGPT",
+    url: "https://chat.openai.com",
+    description: "OpenAI 开发的 AI 聊天助手",
+    category: "ai",
+    icon: "https://www.google.com/s2/favicons?sz=64&domain=openai.com",
+  },
+  {
+    id: 2,
+    name: "Claude",
+    url: "https://claude.ai",
+    description: "Anthropic 开发的 AI 助手",
+    category: "ai",
+    icon: "https://www.google.com/s2/favicons?sz=64&domain=claude.ai",
+  },
+  {
+    id: 3,
+    name: "Midjourney",
+    url: "https://midjourney.com",
+    description: "AI 图像生成工具",
+    category: "ai",
+    icon: "https://www.google.com/s2/favicons?sz=64&domain=midjourney.com",
+  },
+  {
+    id: 4,
+    name: "Hugging Face",
+    url: "https://huggingface.co",
+    description: "AI 模型和数据集平台",
+    category: "ai",
+    icon: "https://www.google.com/s2/favicons?sz=64&domain=huggingface.co",
+  },
+  
+  // 编程类
+  {
+    id: 5,
     name: "GitHub",
     url: "https://github.com",
     description: "全球最大的代码托管平台",
     category: "programming",
-    // 网站图标，使用Google Favicon服务获取
-    icon: "https://github.com/favicon.ico",
+    icon: "https://www.google.com/s2/favicons?sz=64&domain=github.com",
   },
   {
-    id: 2,
+    id: 6,
     name: "Stack Overflow",
     url: "https://stackoverflow.com",
     description: "程序员问答社区",
@@ -60,15 +94,33 @@ export const sites = [
     icon: "https://www.google.com/s2/favicons?sz=64&domain=stackoverflow.com",
   },
   {
-    id: 3,
+    id: 7,
     name: "MDN Web Docs",
     url: "https://developer.mozilla.org",
-    description: "Web 开发文档",
+    description: "Web 开发文档权威资源",
     category: "programming",
     icon: "https://www.google.com/s2/favicons?sz=64&domain=developer.mozilla.org",
   },
   {
-    id: 4,
+    id: 8,
+    name: "LeetCode",
+    url: "https://leetcode.com",
+    description: "算法练习和面试准备平台",
+    category: "programming",
+    icon: "https://www.google.com/s2/favicons?sz=64&domain=leetcode.com",
+  },
+  {
+    id: 9,
+    name: "CodePen",
+    url: "https://codepen.io",
+    description: "前端代码在线编辑和展示平台",
+    category: "programming",
+    icon: "https://www.google.com/s2/favicons?sz=64&domain=codepen.io",
+  },
+  
+  // 工具类
+  {
+    id: 10,
     name: "npm",
     url: "https://www.npmjs.com",
     description: "Node.js 包管理器",
@@ -76,36 +128,114 @@ export const sites = [
     icon: "https://www.google.com/s2/favicons?sz=64&domain=npmjs.com",
   },
   {
-    id: 5,
+    id: 11,
     name: "Vercel",
     url: "https://vercel.com",
-    description: "部署平台",
+    description: "前端部署平台",
     category: "tools",
     icon: "https://www.google.com/s2/favicons?sz=64&domain=vercel.com",
   },
   {
-    id: 6,
+    id: 12,
+    name: "Netlify",
+    url: "https://netlify.com",
+    description: "静态网站托管平台",
+    category: "tools",
+    icon: "https://www.google.com/s2/favicons?sz=64&domain=netlify.com",
+  },
+  {
+    id: 13,
+    name: "Can I Use",
+    url: "https://caniuse.com",
+    description: "浏览器兼容性查询工具",
+    category: "tools",
+    icon: "https://www.google.com/s2/favicons?sz=64&domain=caniuse.com",
+  },
+  
+  // 设计类
+  {
+    id: 14,
     name: "Figma",
     url: "https://www.figma.com",
-    description: "设计工具",
+    description: "在线协作设计工具",
     category: "design",
     icon: "https://www.google.com/s2/favicons?sz=64&domain=figma.com",
   },
   {
-    id: 7,
-    name: "ChatGPT",
-    url: "https://chat.openai.com",
-    description: "AI 聊天助手",
-    category: "ai",
-    icon: "https://www.google.com/s2/favicons?sz=64&domain=openai.com",
+    id: 15,
+    name: "Dribbble",
+    url: "https://dribbble.com",
+    description: "设计师作品展示平台",
+    category: "design",
+    icon: "https://www.google.com/s2/favicons?sz=64&domain=dribbble.com",
   },
   {
-    id: 8,
+    id: 16,
+    name: "Behance",
+    url: "https://www.behance.net",
+    description: "Adobe 旗下的创意作品平台",
+    category: "design",
+    icon: "https://www.google.com/s2/favicons?sz=64&domain=behance.net",
+  },
+  {
+    id: 17,
+    name: "Unsplash",
+    url: "https://unsplash.com",
+    description: "免费高质量图片库",
+    category: "design",
+    icon: "https://www.google.com/s2/favicons?sz=64&domain=unsplash.com",
+  },
+  
+  // 资讯类
+  {
+    id: 18,
     name: "掘金",
     url: "https://juejin.cn",
-    description: "开发者社区",
+    description: "开发者技术社区",
     category: "news",
     icon: "https://www.google.com/s2/favicons?sz=64&domain=juejin.cn",
+  },
+  {
+    id: 19,
+    name: "Hacker News",
+    url: "https://news.ycombinator.com",
+    description: "科技新闻和讨论社区",
+    category: "news",
+    icon: "https://www.google.com/s2/favicons?sz=64&domain=news.ycombinator.com",
+  },
+  {
+    id: 20,
+    name: "Product Hunt",
+    url: "https://www.producthunt.com",
+    description: "新产品发现平台",
+    category: "news",
+    icon: "https://www.google.com/s2/favicons?sz=64&domain=producthunt.com",
+  },
+  
+  // 资源类
+  {
+    id: 21,
+    name: "freeCodeCamp",
+    url: "https://www.freecodecamp.org",
+    description: "免费编程学习平台",
+    category: "resources",
+    icon: "https://www.google.com/s2/favicons?sz=64&domain=freecodecamp.org",
+  },
+  {
+    id: 22,
+    name: "Coursera",
+    url: "https://www.coursera.org",
+    description: "在线课程平台",
+    category: "resources",
+    icon: "https://www.google.com/s2/favicons?sz=64&domain=coursera.org",
+  },
+  {
+    id: 23,
+    name: "YouTube",
+    url: "https://www.youtube.com",
+    description: "视频教程和学习资源",
+    category: "resources",
+    icon: "https://www.google.com/s2/favicons?sz=64&domain=youtube.com",
   },
 ];
 
@@ -113,29 +243,29 @@ export const sites = [
 export const navLinks = [
   {
     name: "首页",
-    href: "#",
+    href: "/",
   },
   {
     name: "推荐",
-    href: "#",
+    href: "/recommended",
   },
   {
     name: "工具",
-    href: "#",
+    href: "/tools",
   },
   {
     name: "资源",
-    href: "#",
+    href: "/resources",
   },
   {
     name: "关于",
-    href: "#",
+    href: "/about",
   },
 ];
 
 // 网站设置
 export const siteSettings = {
-  title: "导航",
+  title: "导航系统",
   description: "我的个人导航系统",
-  searchPlaceholder: "搜索网站...",
+  searchPlaceholder: "搜索网站、工具、资源...",
 };
