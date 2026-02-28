@@ -9,6 +9,11 @@ export const categories = [
     description: "所有网站",
   },
   {
+    id: "ai",
+    name: "AI",
+    description: "人工智能相关",
+  },
+  {
     id: "programming",
     name: "编程",
     description: "编程相关网站",
@@ -29,11 +34,6 @@ export const categories = [
     description: "技术资讯",
   },
   {
-    id: "ai",
-    name: "AI",
-    description: "人工智能相关",
-  },
-  {
     id: "design",
     name: "设计",
     description: "设计工具和资源",
@@ -51,6 +51,58 @@ export const sites = [
     category: "ai",
     icon: "https://www.google.com/s2/favicons?sz=64&domain=openai.com",
   },
+
+  // 国内 AI
+  {
+    id: 24,
+    name: "DeepSeek",
+    url: "https://chat.deepseek.com",
+    description: "深度求索开发的 AI 助手",
+    category: "ai",
+    icon: "https://www.google.com/s2/favicons?sz=64&domain=deepseek.com",
+  },
+  {
+    id: 25,
+    name: "腾讯元宝",
+    url: "https://yuanbao.tencent.com",
+    description: "腾讯推出的 AI 助手",
+    category: "ai",
+    icon: "https://www.google.com/s2/favicons?sz=64&domain=tencent.com",
+  },
+  {
+    id: 26,
+    name: "豆包",
+    url: "https://www.doubao.com",
+    description: "字节跳动推出的 AI 助手",
+    category: "ai",
+    icon: "https://www.google.com/s2/favicons?sz=64&domain=doubao.com",
+  },
+  {
+    id: 27,
+    name: "通义千问",
+    url: "https://tongyi.aliyun.com",
+    description: "阿里巴巴推出的 AI 助手",
+    category: "ai",
+    icon: "https://www.google.com/s2/favicons?sz=64&domain=aliyun.com",
+  },
+  {
+    id: 28,
+    name: "文心一言",
+    url: "https://yiyan.baidu.com",
+    description: "百度推出的 AI 助手",
+    category: "ai",
+    icon: "https://www.google.com/s2/favicons?sz=64&domain=baidu.com",
+  },
+
+  // 国外 AI
+  {
+    id: 29,
+    name: "Bing Chat",
+    url: "https://copilot.microsoft.com",
+    description: "微软推出的 AI 聊天助手",
+    category: "ai",
+    icon: "https://www.google.com/s2/favicons?sz=64&domain=microsoft.com",
+  },
   {
     id: 2,
     name: "Claude",
@@ -59,23 +111,7 @@ export const sites = [
     category: "ai",
     icon: "https://www.google.com/s2/favicons?sz=64&domain=claude.ai",
   },
-  {
-    id: 3,
-    name: "Midjourney",
-    url: "https://midjourney.com",
-    description: "AI 图像生成工具",
-    category: "ai",
-    icon: "https://www.google.com/s2/favicons?sz=64&domain=midjourney.com",
-  },
-  {
-    id: 4,
-    name: "Hugging Face",
-    url: "https://huggingface.co",
-    description: "AI 模型和数据集平台",
-    category: "ai",
-    icon: "https://www.google.com/s2/favicons?sz=64&domain=huggingface.co",
-  },
-  
+
   // 编程类
   {
     id: 5,
@@ -117,7 +153,7 @@ export const sites = [
     category: "programming",
     icon: "https://www.google.com/s2/favicons?sz=64&domain=codepen.io",
   },
-  
+
   // 工具类
   {
     id: 10,
@@ -151,7 +187,7 @@ export const sites = [
     category: "tools",
     icon: "https://www.google.com/s2/favicons?sz=64&domain=caniuse.com",
   },
-  
+
   // 设计类
   {
     id: 14,
@@ -185,7 +221,15 @@ export const sites = [
     category: "design",
     icon: "https://www.google.com/s2/favicons?sz=64&domain=unsplash.com",
   },
-  
+  {
+    id: 32,
+    name: "蓝湖",
+    url: "https://lanhuapp.com",
+    description: "产品设计协作平台",
+    category: "design",
+    icon: "https://www.google.com/s2/favicons?sz=64&domain=lanhuapp.com",
+  },
+
   // 资讯类
   {
     id: 18,
@@ -197,21 +241,29 @@ export const sites = [
   },
   {
     id: 19,
-    name: "Hacker News",
-    url: "https://news.ycombinator.com",
-    description: "科技新闻和讨论社区",
+    name: "CSDN",
+    url: "https://www.csdn.net",
+    description: "中国专业开发者社区",
     category: "news",
-    icon: "https://www.google.com/s2/favicons?sz=64&domain=news.ycombinator.com",
+    icon: "https://www.google.com/s2/favicons?sz=64&domain=csdn.net",
   },
   {
     id: 20,
-    name: "Product Hunt",
-    url: "https://www.producthunt.com",
-    description: "新产品发现平台",
+    name: "V2EX",
+    url: "https://www.v2ex.com",
+    description: "创意工作者社区",
     category: "news",
-    icon: "https://www.google.com/s2/favicons?sz=64&domain=producthunt.com",
+    icon: "https://www.google.com/s2/favicons?sz=64&domain=v2ex.com",
   },
-  
+  {
+    id: 30,
+    name: "知乎",
+    url: "https://www.zhihu.com",
+    description: "中文互联网问答社区",
+    category: "news",
+    icon: "https://www.google.com/s2/favicons?sz=64&domain=zhihu.com",
+  },
+
   // 资源类
   {
     id: 21,
@@ -236,6 +288,14 @@ export const sites = [
     description: "视频教程和学习资源",
     category: "resources",
     icon: "https://www.google.com/s2/favicons?sz=64&domain=youtube.com",
+  },
+  {
+    id: 31,
+    name: "Bilibili",
+    url: "https://www.bilibili.com",
+    description: "国内知名视频学习平台",
+    category: "resources",
+    icon: "https://www.google.com/s2/favicons?sz=64&domain=bilibili.com",
   },
 ];
 
