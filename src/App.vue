@@ -46,6 +46,15 @@
     <!-- 页脚 -->
     <footer class="footer">
       <p>Made with ❤️ | Navigation System © 2026</p>
+      <div class="icp-links">
+        <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">
+          京 ICP 备 2026005080 号
+        </a>
+        <span class="divider">|</span>
+        <a href="https://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010702003005" target="_blank" rel="noopener noreferrer">
+          京公网安备 11010702003005 号
+        </a>
+      </div>
     </footer>
   </div>
 </template>
@@ -227,6 +236,28 @@ body {
   color: var(--text-light);
   font-size: 14px;
   border-top: 1px solid rgba(102, 126, 234, 0.1);
+}
+
+.icp-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.icp-links .divider {
+  color: rgba(102, 126, 234, 0.3);
+}
+
+.footer a {
+  color: var(--text-light);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer a:hover {
+  color: var(--primary-color);
 }
 
 /* 响应式设计 */
